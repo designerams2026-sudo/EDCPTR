@@ -1,0 +1,14 @@
+<?php
+require_once __DIR__ . '/backend/auth.php';
+require_role('super-admin');
+?>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Super administrateur — EduPortail</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="app"><nav class="topnav"><a class="active" href="#accueil">Accueil</a><a class="hide-sm" href="#applications">⌂ Mes applications</a><a class="hide-sm" href="#ressources">▣ Mes ressources</a><div class="spacer"></div><span class="brand">🔑 Super administrateur</span><button onclick="logout()">Déconnexion</button></nav>
+<main class="desk"><div class="desk-head"><span>▣</span> BUREAU ESSENTIEL</div><p class="role-note">Espace super administrateur — les services affichés correspondent à votre profil.</p><div class="tile-grid"><button class="tile" data-panel="p0"><div class="ticon">🏫</div><div class="ttitle">Établissements</div></button>
+<button class="tile" data-panel="p1"><div class="ticon">👤</div><div class="ttitle">Comptes administrateurs</div></button>
+<button class="tile" data-panel="p2"><div class="ticon">🕘</div><div class="ttitle">Journal de session</div></button>
+<button class="tile" data-panel="p3"><div class="ticon">⚙️</div><div class="ttitle">Paramètres</div></button></div><section class="panel" id="p0"><h2>Établissements</h2><p>Gestion des établissements. Aucun établissement n'est créé automatiquement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p1"><h2>Comptes administrateurs</h2><p>Gestion des comptes autorisés par votre futur serveur.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p2"><h2>Journal de session</h2><p>La connexion actuelle est visible uniquement pendant cette session.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p3"><h2>Paramètres</h2><p>Configuration générale de la plateforme.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section><div class="session" id="session"></div></main></div>
+<script src="auth.js"></script><script>sessionLabel().then(label=>{document.getElementById("session").textContent=label;});document.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{document.querySelectorAll(".panel").forEach(p=>p.classList.remove("open"));document.getElementById(b.dataset.panel).classList.add("open");document.getElementById(b.dataset.panel).scrollIntoView({behavior:"smooth",block:"nearest"});});</script></body></html>

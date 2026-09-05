@@ -1,0 +1,16 @@
+<?php
+require_once __DIR__ . '/backend/auth.php';
+require_role('eleve');
+?>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Élève — EduPortail</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="app"><nav class="topnav"><a class="active" href="#accueil">Accueil</a><a class="hide-sm" href="#applications">⌂ Mes applications</a><a class="hide-sm" href="#ressources">▣ Mes ressources</a><div class="spacer"></div><span class="brand">🎓 Élève</span><button onclick="logout()">Déconnexion</button></nav>
+<main class="desk"><div class="desk-head"><span>▣</span> BUREAU ESSENTIEL</div><p class="role-note">Espace élève — les services affichés correspondent à votre profil.</p><div class="tile-grid"><button class="tile" data-panel="p0"><div class="ticon">🏠</div><div class="ttitle">Mon espace</div></button>
+<button class="tile" data-panel="p1"><div class="ticon">📚</div><div class="ttitle">Mes ressources</div></button>
+<button class="tile" data-panel="p2"><div class="ticon">🗓️</div><div class="ttitle">Mon emploi du temps</div></button>
+<button class="tile" data-panel="p3"><div class="ticon">✉️</div><div class="ttitle">Messagerie</div></button>
+<button class="tile" data-panel="p4"><div class="ticon">👤</div><div class="ttitle">Mon compte</div></button></div><section class="panel" id="p0"><h2>Mon espace</h2><p>Services personnels de l'élève connecté.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p1"><h2>Mes ressources</h2><p>Ressources attribuées par l'établissement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p2"><h2>Mon emploi du temps</h2><p>À connecter à votre source officielle.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p3"><h2>Messagerie</h2><p>Messagerie de l'établissement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p4"><h2>Mon compte</h2><p>Aucune donnée n'est créée automatiquement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section><div class="session" id="session"></div></main></div>
+<script src="auth.js"></script><script>sessionLabel().then(label=>{document.getElementById("session").textContent=label;});document.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{document.querySelectorAll(".panel").forEach(p=>p.classList.remove("open"));document.getElementById(b.dataset.panel).classList.add("open");document.getElementById(b.dataset.panel).scrollIntoView({behavior:"smooth",block:"nearest"});});</script></body></html>

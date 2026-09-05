@@ -1,0 +1,18 @@
+<?php
+require_once __DIR__ . '/backend/auth.php';
+require_role('chef');
+?>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chef d'établissement — EduPortail</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="app"><nav class="topnav"><a class="active" href="#accueil">Accueil</a><a class="hide-sm" href="#applications">⌂ Mes applications</a><a class="hide-sm" href="#ressources">▣ Mes ressources</a><div class="spacer"></div><span class="brand">🏫 Chef d'établissement</span><button onclick="logout()">Déconnexion</button></nav>
+<main class="desk"><div class="desk-head"><span>▣</span> BUREAU ESSENTIEL</div><p class="role-note">Espace chef d'établissement — les services affichés correspondent à votre profil.</p><div class="tile-grid"><button class="tile" data-panel="p0"><div class="ticon">📊</div><div class="ttitle">Bureau de l'établissement</div></button>
+<button class="tile" data-panel="p1"><div class="ticon">👥</div><div class="ttitle">Personnel</div></button>
+<button class="tile" data-panel="p2"><div class="ticon">🎓</div><div class="ttitle">Élèves</div></button>
+<button class="tile" data-panel="p3"><div class="ticon">👪</div><div class="ttitle">Parents</div></button>
+<button class="tile" data-panel="p4"><div class="ticon">✉️</div><div class="ttitle">Messagerie</div></button>
+<button class="tile" data-panel="p5"><div class="ticon">⚙️</div><div class="ttitle">Paramètres</div></button></div><section class="panel" id="p0"><h2>Bureau de l'établissement</h2><p>Vue générale de l'établissement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p1"><h2>Personnel</h2><p>Accès réservé à la gestion du personnel.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p2"><h2>Élèves</h2><p>Aucune création automatique d'élève.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p3"><h2>Parents</h2><p>Gestion des accès parents par un service sécurisé.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p4"><h2>Messagerie</h2><p>Service à connecter à votre messagerie réelle.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section>
+<section class="panel" id="p5"><h2>Paramètres</h2><p>Paramètres de l'établissement.</p><div class="empty">Cette zone est prête à être reliée à votre backend/API. Aucune donnée fictive d’élève n’est enregistrée ici.</div></section><div class="session" id="session"></div></main></div>
+<script src="auth.js"></script><script>sessionLabel().then(label=>{document.getElementById("session").textContent=label;});document.querySelectorAll(".tile").forEach(b=>b.onclick=()=>{document.querySelectorAll(".panel").forEach(p=>p.classList.remove("open"));document.getElementById(b.dataset.panel).classList.add("open");document.getElementById(b.dataset.panel).scrollIntoView({behavior:"smooth",block:"nearest"});});</script></body></html>

@@ -1,0 +1,48 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portail d'accès aux services numériques</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="portal-login"><div class="portal-top">Portail d'accès aux services numériques</div>
+<div class="login-wrap"><h1>Qui êtes-vous ?</h1><p>Choisissez votre profil pour accéder à votre espace.</p>
+<div class="role-grid">
+<button class="role-card" style="--accent:var(--eleve)" data-role="eleve"><div class="ico">🎓</div><h2>Élève</h2><p>Accéder à son espace scolaire et à ses services.</p><small>Se connecter</small></button>
+<button class="role-card" style="--accent:var(--prof)" data-role="professeur"><div class="ico">👥</div><h2>Professeur</h2><p>Classes, ressources et communication.</p><small>Se connecter</small></button>
+<button class="role-card" style="--accent:var(--chef)" data-role="chef"><div class="ico">🏫</div><h2>Chef d'établissement</h2><p>Gestion de l'établissement et des accès.</p><small>Se connecter</small></button>
+<button class="role-card" style="--accent:var(--parent)" data-role="parent"><div class="ico">👪</div><h2>Parent</h2><p>Suivi et services liés à son enfant.</p><small>Se connecter</small></button>
+<button class="role-card" style="--accent:var(--admin)" data-role="super-admin"><div class="ico">🔑</div><h2>Super administrateur</h2><p>Administration générale de la plateforme.</p><small>Se connecter</small></button>
+</div>
+<form class="login-box" id="login"><h2 id="login-title">Connexion</h2>
+<div class="field"><label for="identifiant">Identifiant</label><input id="identifiant" autocomplete="username" required></div>
+<div class="field"><label for="motdepasse">Mot de passe</label><input id="motdepasse" type="password" autocomplete="current-password" required></div>
+<button class="btn" type="submit">Se connecter</button><div class="error" id="error"></div>
+<p class="hint" id="hint">Les autres espaces nécessitent une authentification côté serveur pour un usage réel.</p></form>
+<div class="footer">Aucune donnée d'élève n'est créée ni fournie dans cette version.</div></div></div>
+<script src="auth.js"></script><script>
+let role="";
+const target={eleve:"eleve.php",professeur:"professeur.php",chef:"chef-etablissement.php",parent:"parent.php","super-admin":"super-admin.php"};
+document.querySelectorAll(".role-card").forEach(c=>c.onclick=()=>{
+  role=c.dataset.role;
+  document.getElementById("login").classList.add("open");
+  document.getElementById("login-title").textContent="Connexion — "+c.querySelector("h2").textContent;
+  document.getElementById("identifiant").focus();
+  document.getElementById("error").textContent="";
+  document.getElementById("hint").textContent="Connexion sécurisée par le serveur.";
+});
+document.getElementById("login").onsubmit=async e=>{
+  e.preventDefault();
+  const id=document.getElementById("identifiant").value.trim();
+  const pw=document.getElementById("motdepasse").value;
+  const error=document.getElementById("error");
+  error.textContent="";
+  try{
+    const r=await fetch("backend/api/login.php",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      credentials:"same-origin",
+      body:JSON.stringify({username:id,password:pw,role})
+    });
+    const data=await r.json();
+    if(!r.ok){ error.textContent=data.error||"Identifiant ou mot de passe incorrect."; return; }
+    window.location.href=target[role];
+  }catch(err){
+    error.textContent="Impossible de contacter le serveur.";
+  }
+};
+</script></body></html>
